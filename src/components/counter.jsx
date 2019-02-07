@@ -33,11 +33,20 @@ class Counter extends Component {
     }
   }
 
-    handleIncrement = (id) => {
+    handleIncrement = () => {
       // state should be updated 
       this.setState({
         count: this.state.count + 1 ,
       })
+    }
+
+    handleDelete = () =>  {
+      if(this.state.count > 0){
+        this.setState({
+          count: this.state.count - 1
+        });
+      }
+      
     }
   
   render() {
@@ -49,6 +58,8 @@ class Counter extends Component {
        
 
         <button onClick={ () => this.handleIncrement()} className="btn btn-secondary btn-sm">increment</button>
+        <button onClick= {() => this.handleDelete()} className="btn-warning m-2"> Decrement</button>
+        <button onClick = {() => this.props.onDelete(this.props.id)} className ="btn-danger"> Delete</button>
         <img src={this.state.image} alt="" />
         {/* <ul>
           {this.getTags()}
