@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 class Counter extends Component {
   state = {
-    count: 0,
-    // image: "https://picsum.photos/200",
+    count: this.props.value, // declare the count as props value
     tags: [
       'tag 01' , 'tag 02' , 'tag 03'
     ]
   };
 
   styles = {
-    fontSize: 20,
+    // fontSize: 20,
     fontWeight: "bold"
   };
   // get count method => return number if count > 1 else return zero 
@@ -37,23 +36,23 @@ class Counter extends Component {
     handleIncrement = (id) => {
       // state should be updated 
       this.setState({
-        count: this.state.count + id ,
+        count: this.state.count + 1 ,
       })
     }
-  // the main ui structure is placed in the render method 
+  
   render() {
     return (
-      // react fragment is a ideal replacement for div 
+      
       <React.Fragment> 
+        {this.props.children}
         <span className={this.getClasses()}>{this.getCount()} </span> 
-        {/* the getClasses() method is passed as a style class */}
-        {/* the getcount() method is passed as the count  */}
+       
 
-        <button onClick={ () => this.handleIncrement(23)} className="btn btn-secondary btn-sm">increment</button>
+        <button onClick={ () => this.handleIncrement()} className="btn btn-secondary btn-sm">increment</button>
         <img src={this.state.image} alt="" />
-        <ul>
+        {/* <ul>
           {this.getTags()}
-        </ul>
+        </ul> */}
       </React.Fragment>
     );
   }
