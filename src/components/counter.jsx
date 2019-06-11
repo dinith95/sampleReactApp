@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 class Counter extends Component {
-  // state = {
-  //   count: this.props.value, // declare the count as props value
-  //   tags: ["tag 01", "tag 02", "tag 03"]
-  // };
+  state = {
+    count: this.props.value, // declare the count as props value
+    tags: ["tag 01", "tag 02", "tag 03"]
+  };
 
   styles = {
     // fontSize: 20,
@@ -11,7 +11,7 @@ class Counter extends Component {
   };
   // get count method => return number if count > 1 else return zero
   getCount() {
-    return this.state.count === 0 ? <h1>Zero</h1> : this.state.count; // jsx can be directly returned
+    return this.props.value === 0 ? <h3>Zero</h3> : this.props.value; // jsx can be directly returned
   }
   // conditional style classes
   getClasses() {
@@ -26,9 +26,10 @@ class Counter extends Component {
 
   handleIncrement = () => {
     // state should be updated
-    this.setState({
-      count: this.state.count + 1
-    });
+    // this.setState({
+    //   count: this.state.count + 1
+    // });
+    // this.
   };
 
   handleDelete = () => {
@@ -46,12 +47,15 @@ class Counter extends Component {
         <span className={this.getClasses()}>{this.getCount()} </span>
 
         <button
-          onClick={() => this.handleIncrement()}
+          onClick={() => this.props.onIncrement(this.props.id)}
           className="btn btn-secondary btn-sm"
         >
           increment
         </button>
-        <button onClick={() => this.handleDelete()} className="btn-warning m-2">
+        <button
+          onClick={() => this.props.onDecrement(this.props.id)}
+          className="btn-warning m-2"
+        >
           {" "}
           Decrement
         </button>
