@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Counter from "./counter";
+import { connect } from "react-redux";
 
 class Counters extends Component {
   state = {
@@ -86,9 +87,9 @@ class Counters extends Component {
               id={counter.id}
               key={counter.id}
               value={counter.value}
-              onDelete={this.handleDelete}
-              onIncrement={this.handleIncrement}
-              onDecrement={this.handleDecrement}
+              // onDelete={this.handleDelete}
+              // onIncrement={this.handleIncrement}
+              // onDecrement={this.handleDecrement}
             >
               <h2> counter {counter.id}</h2>
             </Counter>
@@ -96,11 +97,16 @@ class Counters extends Component {
           {/* add counter id and the value to the list of counter tags  */}
         </ul>
         <div>
-          <h2> total count {this.state.totalCounter}</h2>
+          <h2> total count {this.props.totalCount}</h2>
         </div>
       </React.Fragment>
     );
   }
 }
-
-export default Counters;
+const mapStateToProps = state => ({
+  totalCount: state.totalCounter
+});
+export default connect(
+  mapStateToProps,
+  {}
+)(Counters);

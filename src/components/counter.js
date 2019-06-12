@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { handleIncrement, handleDecrement } from "../store/actions/mainActions";
+import { connect } from "react-redux";
 class Counter extends Component {
   state = {
     count: this.props.value, // declare the count as props value
@@ -11,26 +13,29 @@ class Counter extends Component {
   };
   // get count method => return number if count > 1 else return zero
   getCount() {
-    return this.props.value === 0 ? <h3>Zero</h3> : this.props.value; // jsx can be directly returned
+    const { id, counters } = this.props;
+    const count = counters.filter(counter => counter.id === id)[0];
+    // console.log(count);
+    return count.value === 0 ? <h3>Zero</h3> : <h3>{count.value}</h3>; // jsx can be directly returned
   }
   // conditional style classes
   getClasses() {
     let styleString = "badge m-2 ";
-    if (this.state.count === 0) {
-      styleString += "badge-warning";
-    } else {
-      styleString += "badge-primary";
-    }
+    // if (this.state.count === 0) {
+    //   styleString += "badge-warning";
+    // } else {
+    //   styleString += "badge-primary";
+    // }
     return styleString;
   }
 
-  handleIncrement = () => {
-    // state should be updated
-    // this.setState({
-    //   count: this.state.count + 1
-    // });
-    // this.
-  };
+  // handleIncrement = () => {
+  //   // state should be updated
+  //   // this.setState({
+  //   //   count: this.state.count + 1
+  //   // });
+  //   // this.
+  // };
 
   handleDelete = () => {
     if (this.state.count > 0) {
@@ -44,16 +49,16 @@ class Counter extends Component {
     return (
       <React.Fragment>
         {this.props.children}
-        <span className={this.getClasses()}>{this.getCount()} </span>
+        <span className="badge m-4 badge-primary">{this.getCount()} </span>
 
         <button
-          onClick={() => this.props.onIncrement(this.props.id)}
+          onClick={() => this.props.handleIncrement(this.props.id)}
           className="btn btn-secondary btn-sm"
         >
           increment
         </button>
         <button
-          onClick={() => this.props.onDecrement(this.props.id)}
+          onClick={() => this.props.handleDecrement(this.props.id)}
           className="btn-warning m-2"
         >
           {" "}
@@ -75,5 +80,11 @@ class Counter extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  counters: state.counters
+});
 
-export default Counter;
+export default connect(
+  mapStateToProps,
+  { handleIncrement, handleDecrement }
+)(Counter);
