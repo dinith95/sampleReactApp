@@ -1,22 +1,22 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk"; // rect middleware
-import mainReducer from "./reducer/mainReducer";
+import reducer from "./reducer";
 
 const initialState = {
-  totalCounter: 0,
-  counters: [
-    { id: 1, value: 0 },
-    { id: 2, value: 0 },
-    { id: 3, value: 0 },
-    { id: 4, value: 0 },
-    { id: 5, value: 0 }
-  ]
+  // totalCounter: 0,
+  // counters: [
+  //   { id: 1, value: 0 },
+  //   { id: 2, value: 0 },
+  //   { id: 3, value: 0 },
+  //   { id: 4, value: 0 },
+  //   { id: 5, value: 0 }
+  // ]
 };
 
 const middleware = [thunk];
 
 const store = createStore(
-  mainReducer,
+  reducer,
   initialState,
   compose(
     applyMiddleware(...middleware),

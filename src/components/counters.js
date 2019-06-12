@@ -104,7 +104,7 @@ class Counters extends Component {
   }
 }
 const mapStateToProps = state => ({
-  totalCount: state.totalCounter
+  totalCount: state.main.totalCounter
 });
 export default connect(
   mapStateToProps,
