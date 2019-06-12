@@ -11,17 +11,7 @@ class Counter extends Component {
   };
   // get count method => return number if count > 1 else return zero
   getCount() {
-    return this.props.value === 0 ? <h3>Zero</h3> : this.props.value; // jsx can be directly returned
-  }
-  // conditional style classes
-  getClasses() {
-    let styleString = "badge m-2 ";
-    if (this.state.count === 0) {
-      styleString += "badge-warning";
-    } else {
-      styleString += "badge-primary";
-    }
-    return styleString;
+    return this.props.value === 0 ? <h3>Zero</h3> : <h3>{this.props.value}</h3>; // jsx can be directly returned
   }
 
   handleIncrement = () => {
@@ -44,7 +34,7 @@ class Counter extends Component {
     return (
       <React.Fragment>
         {this.props.children}
-        <span className={this.getClasses()}>{this.getCount()} </span>
+        <span className="badge badge-primary m-2 ">{this.getCount()} </span>
 
         <button
           onClick={() => this.props.onIncrement(this.props.id)}
