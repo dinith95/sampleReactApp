@@ -8,68 +8,56 @@ class Counters extends Component {
       { id: 2, value: 0 },
       { id: 3, value: 0 },
       { id: 4, value: 0 },
-      { id: 5, value: 0 }
+      { id: 5, value: 0 },
     ],
-    totalCounter: 0
+    totalCounter: 0,
   };
 
   handleDelete = id => {
     // console.log('delete clicked ', id);
-    const counters = this.state.counters.filter(counter => {
-      if (counter.id != id) {
-        return counter;
-      }
-    });
-    let totalCount = 0;
-    counters.forEach(counter => (totalCount += counter.value));
+    const counters = this.state.counters.filter(counter => counter.id != id);
+    const totalCount = counters.reduce(
+      (total, counter) => total + counter.value,
+      0
+    );
     // console.log('counters :', counters);
     this.setState({
       counters: counters,
-      totalCounter: totalCount
+      totalCounter: totalCount,
     });
   };
 
   handleDecrement = id => {
     console.log("decrement");
     const counters = this.state.counters.map(counter => {
-      if (counter.id === id) {
-        counter.value = counter.value - 1;
-        return counter;
-      } else {
-        return counter;
-      }
+      counter.value = counter.id === id ? counter.value - 1 : counter.value;
+      return counter;
     });
     this.setState({
       counters: counters,
-      totalCounter: this.state.totalCounter - 1
+      totalCounter: this.state.totalCounter - 1,
     });
   };
 
   handleIncrement = id => {
     console.log("increment");
     const counters = this.state.counters.map(counter => {
-      if (counter.id === id) {
-        counter.value = counter.value + 1;
-        return counter;
-      } else {
-        return counter;
-      }
+      counter.value = counter.id === id ? counter.value + 1 : counter.value;
+      return counter;
     });
     this.setState({
       counters: counters,
-      totalCounter: this.state.totalCounter + 1
+      totalCounter: this.state.totalCounter + 1,
     });
   };
 
   handleReset = () => {
     console.log("reset handle");
-    const counters = this.state.counters.map(counter => {
-      counter.value = 0;
-      return counter;
-    });
+    const counters = [...this.state.counters];
+    counters.forEach(c => (c.value = 0));
     this.setState({
       counters: counters,
-      totalCounter: 0
+      totalCounter: 0,
     });
   };
 
@@ -88,8 +76,7 @@ class Counters extends Component {
               value={counter.value}
               onDelete={this.handleDelete}
               onIncrement={this.handleIncrement}
-              onDecrement={this.handleDecrement}
-            >
+              onDecrement={this.handleDecrement}>
               <h2> counter {counter.id}</h2>
             </Counter>
           ))}
